@@ -18,6 +18,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^PreDeleteHandler)(void (^nullable)(BOOL));
+
 /** @class FUIAccountSettingsViewController
     @brief Represents View Controller for Account Management UI. This controller should be embedded
         in @c UINavigationController in order to present it's internal views.
@@ -29,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, assign, getter=isDeleteAccountActionDisabled)
     BOOL deleteAccountActionDisabled;
+
+@property(nonatomic, strong, nullable) PreDeleteHandler preDeleteHandler;
 
 @end
 

@@ -371,9 +371,19 @@ static NSString *const kUserAccountImage = @"ic_account_circle.png";
       [FUIStaticContentTableViewCell cellWithTitle:FUILocalizedString(kStr_ASCellDeleteAccount)
                                               type:FUIStaticContentTableViewCellTypeButton
                                             action:^{
-        [FUIAccountSettingsOperationDeleteAccount executeOperationWithDelegate:self
-                                                                    showDialog:YES];
-      }
+                                                if (_preDeleteHandler != nil){
+                                                    _preDeleteHandler(^(BOOL result){
+                                                        if(result){
+                                                            [FUIAccountSettingsOperationDeleteAccount executeOperationWithDelegate:self
+                                                                                                                        showDialog:YES];
+                                                            
+                                                        }
+                                                    });
+                                                }else{
+                                                    [FUIAccountSettingsOperationDeleteAccount executeOperationWithDelegate:self
+                                                                                                                showDialog:YES];
+                                                }
+                                            }
 ];
     [cells addObject:deleteCell];
   }
